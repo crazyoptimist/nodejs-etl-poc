@@ -6,7 +6,7 @@
     "build": "tsc",
     "dev": "ts-node src/main.ts",
     "prepare": "husky install",
-    "test": "jest",
+    "test": "jest --verbose --coverage",
     "test:watch": "jest --watch"
   },
   "repository": {
