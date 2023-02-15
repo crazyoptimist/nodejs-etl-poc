@@ -1,3 +1,5 @@
+import { transformVisit } from "./transform-visit";
+
 describe("transformVisit", () => {
   test("it returns a valid transformed visit object", () => {
     const sampleVisit = {
@@ -22,7 +24,7 @@ describe("transformVisit", () => {
       url_object: {
         domain: "www.imaginary.co.uk",
         path: "/cfgrg/gxzhb",
-        query_object: null,
+        query_object: {},
         hash: null,
       },
       ec: sampleVisit.e,
