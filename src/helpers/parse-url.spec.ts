@@ -1,4 +1,4 @@
-import url from "url";
+import { parseUrl } from "./parse-url";
 
 describe("parseUrl", () => {
   test("it returns a valid url_object given a url", () => {
