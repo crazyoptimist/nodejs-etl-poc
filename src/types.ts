@@ -1,11 +1,11 @@
 type Visit = {
-  ts: Date;
+  ts: number;
   u: string;
   e: any[];
 };
 
 type TransformedVisit = {
-  timestamp: Date;
+  timestamp: number;
   url_object: UrlObject;
   ec: any[];
 };
