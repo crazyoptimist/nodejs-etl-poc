@@ -1,3 +1,4 @@
+import { TransformedVisit, Visit } from "../types";
 import { parseUrl } from "./parse-url";
 
 export function transformVisit(visit: Visit): TransformedVisit {

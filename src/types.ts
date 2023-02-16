@@ -1,16 +1,16 @@
-type Visit = {
+export type Visit = {
   ts: number;
   u: string;
   e: any[];
 };
 
-type TransformedVisit = {
+export type TransformedVisit = {
   timestamp: number;
   url_object: UrlObject;
   ec: any[];
 };
 
-type UrlObject = {
+export type UrlObject = {
   domain: string | null;
   path: string | null;
   query_object: any;
