@@ -10,7 +10,7 @@
 
 Example input object
 
-```json
+```js
 {
   "ts": 1234567890,                                                         // unix timestamp
   "u": "https://www.test.com/products/productA.html?a=5435&b=test#reviews"  // a url
@@ -20,7 +20,7 @@ Example input object
 
 Example output object
 
-```json
+```js
 {
   "timestamp": ....                   // same timestamp as parent
   "url_object": {                     // parsed URL object
