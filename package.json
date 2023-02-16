@@ -4,8 +4,10 @@
   "description": "ETL challenge at Data Sentinel",
   "scripts": {
     "build": "tsc",
+    "clean:result": "rm -rf data-result/*",
     "dev": "ts-node src/main.ts",
     "prepare": "husky install",
+    "start": "node build/main.js",
     "test": "jest",
     "test:coverage": "jest --verbose --coverage",
     "test:watch": "jest --watch"

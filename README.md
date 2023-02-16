@@ -34,3 +34,35 @@ Example output object
   "ec": {original event content}
 }
 ```
+
+### Design
+
+- Source data format is known, one gzip file contains only one JSON object
+- Read one gzip at a time
+- Perform the transformation
+- Buffer the transformed data, buffer capacity 8Kb
+- Write the buffered array of transformed objects to a file
+- Repeat the process as a pipeline
+
+### Build & Run
+
+```
+npm install
+npm run build
+npm start
+```
+
+This applicaiton is to run as a one time job. In a real scenario, the pipeline will be run as a long running job.
+
+### Development
+
+```
+npm install
+npm run dev
+```
+
+### Test
+
+```
+npm test
+```
