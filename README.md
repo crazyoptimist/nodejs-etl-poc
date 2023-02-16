@@ -1,5 +1,7 @@
 # ETL Processing Test
 
+[![build & test](https://github.com/crazyoptimist/nodejs-etl-poc/actions/workflows/build-and-test.yaml/badge.svg)](https://github.com/crazyoptimist/nodejs-etl-poc/actions/workflows/build-and-test.yaml)
+
 ### Requirements
 
 - Extract JSON objects from files on a local disk

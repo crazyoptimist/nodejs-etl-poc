@@ -1,4 +1,4 @@
-name: CI for STAGING
+name: build & test
 
 on:
   push:
@@ -28,4 +28,4 @@ jobs:
         working-directory: .
         run: npm run build
       - name: Run unit tests
-        run: npm test
+        run: npm run test:coverage
