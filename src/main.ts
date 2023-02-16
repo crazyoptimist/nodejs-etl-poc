@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { KILO_BYTE, RESULT_FILE_PREFIX } from "./constants";
 import { readSingleGzip } from "./helpers/read-single-gzip";
+import { transformVisit } from "./helpers/transform-visit";
 import { TransformedVisit } from "./types";
 
 const DATA_SOURCE_PATH = "data-source";
@@ -12,28 +13,43 @@ export async function runPipeline(
   dataResultPath: string
 ) {
   let temp: TransformedVisit[] = [];
-  try {
-    const files = await fs.promises.readdir(dataSourcePath);
-    for (const file of files) {
-      const filePath = path.join(dataSourcePath, file);
-      if (!filePath.endsWith(".gz")) {
-        continue;
-      }
+  const files = await fs.promises.readdir(dataSourcePath);
+  const lengthOfSource = files.length;
 
-      const visit = readSingleGzip(filePath);
-      temp.push(visit);
-      if (Buffer.byteLength(JSON.stringify(temp)) < 8 * KILO_BYTE) {
-        continue;
-      }
-      temp.pop();
-      fs.writeFileSync(
-        `${RESULT_FILE_PREFIX}${Date.now()}`,
-        JSON.stringify(temp)
-      );
-      temp = [];
+  for (let i = 0; i < lengthOfSource; i++) {
+    const sourceFilePath = path.join(dataSourcePath, files[i]);
+    if (!sourceFilePath.endsWith(".gz")) {
+      continue;
     }
+    const resultFilePath = path.join(
+      dataResultPath,
+      `${RESULT_FILE_PREFIX}${Date.now()}.json`
+    );
+
+    const visit = readSingleGzip(sourceFilePath);
+    const transformedVisit = transformVisit(visit);
+    temp.push(transformedVisit);
+
+    if (i === lengthOfSource - 1) {
+      writeDataToLocalDisk(resultFilePath, temp);
+      break;
+    }
+
+    if (Buffer.byteLength(JSON.stringify(temp)) < 8 * KILO_BYTE) {
+      continue;
+    }
+
+    temp.pop();
+    writeDataToLocalDisk(resultFilePath, temp);
+    temp = [transformedVisit];
+  }
+}
+
+function writeDataToLocalDisk(fileName: string, data: any): void {
+  try {
+    fs.writeFileSync(fileName, JSON.stringify(data));
   } catch (e) {
-    console.error(e);
+    console.error("error during writing results to a local disk");
   }
 }
 
